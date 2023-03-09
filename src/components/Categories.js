@@ -1,9 +1,17 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { categoryCheckStatus } from '../redux/categories/categoriesSlice';
 
-const Categories = () => (
-  <div className="book-card m-3 display-flex">
-    <button type="button">Check Status</button>
-  </div>
-);
+const Categories = () => {
+  const category = useSelector((state) => state.category);
+  const dispatch = useDispatch();
+
+  return (
+    <div className="book-card m-3 display-flex">
+      <button type="button" onClick={() => { dispatch(categoryCheckStatus()); }}>Check Status</button>
+      <div className="p-1">{category}</div>
+    </div>
+  );
+};
 
 export default Categories;
