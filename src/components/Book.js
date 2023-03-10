@@ -1,56 +1,27 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import Interactions from './Interactions';
+import { removeBook } from '../redux/books/booksSlice';
 
-const Book = (props) => {
-  const { book, itemId } = props;
-  const {
-    title, author, category,
-  } = book[0];
+function Book({ title, author, id }) {
+  const dispatch = useDispatch();
 
+  const removeHandler = (id) => {
+    dispatch(removeBook(id));
+  };
   return (
-    <li className="display-flex m-3 space-between book-card">
-      <div>
-        <ul>
-          <li>{category}</li>
-          <li><h2>{title}</h2></li>
-          <li>{author}</li>
-        </ul>
-        <Interactions itemId={itemId} />
-      </div>
-      <div className="display-flex space-between book-card-details">
-        <div className="display-flex">
-          <span className="completed" />
-          {}
-          %
-          {' '}
-          <br />
-          {' '}
-          Completed
-        </div>
-        <div>
-          <h4>CURRENT CHAPTER</h4>
-          <div>
-            Chapter
-            {}
-            :
-            {}
-          </div>
-          <div>
-            <button className="mt-1" type="button">Update Progress</button>
-          </div>
-        </div>
-      </div>
-    </li>
+    <div>
+      <h2>{title}</h2>
+      <h3>{author}</h3>
+      <button type="button" onClick={() => removeHandler(id)}>Remove</button>
+    </div>
   );
-  // }
-};
+}
 
 Book.propTypes = {
-  book: PropTypes.instanceOf(Object).isRequired,
-  title: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
-  itemId: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default Book;

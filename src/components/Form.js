@@ -1,38 +1,45 @@
 import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid'; /* Generate a random ID */
 import { useDispatch } from 'react-redux';
 import { addBook } from '../redux/books/booksSlice';
 
-const Form = () => {
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
+function Form() {
+  const initial = {
+    author: '',
+    title: '',
+  };
+  const [newBook, setNewBook] = useState(initial);
+
+  const inputHandler = (e) => {
+    setNewBook({
+      ...newBook,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   const dispatch = useDispatch();
 
-  const addBookHandler = (event) => {
-    event.preventDefault();
-
-    if (title !== '' && author !== '') {
-      dispatch(addBook({
-        item_id: uuidv4(),
-        category: 'Miscellaneous',
-        title,
-        author,
-      }));
-    }
-    setAuthor('');
-    setTitle('');
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(addBook({
+      ...newBook,
+      item_id: uuidv4(),
+      category: 'Miscellaneous',
+    }));
+    setNewBook(initial);
   };
 
   return (
-    <div className="m-3">
-      <h2 className="form-title">ADD NEW BOOK</h2>
-      <form className="book-card display-flex form-container">
-        <input className="p-1" type="text" name="title" placeholder="Book title" value={title} onChange={(e) => setTitle(e.target.value)} />
-        <input className="p-1" type="text" name="author" placeholder="Book author" value={author} onChange={(e) => setAuthor(e.target.value)} />
-        <input className="p-1 button" type="submit" value="Add Book" onClick={addBookHandler} />
-      </form>
-    </div>
+    <form onSubmit={submitHandler}>
+      <label htmlFor="title">
+        <input name="title" placeholder="Book title" onChange={inputHandler} value={newBook.title} required />
+      </label>
+      <label htmlFor="author">
+        <input name="author" placeholder="Book author" onChange={inputHandler} value={newBook.author} required />
+      </label>
+      <button type="submit">ADD BOOK</button>
+    </form>
   );
-};
+}
 
 export default Form;

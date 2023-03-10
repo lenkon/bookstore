@@ -1,41 +1,61 @@
-const ADD_BOOK = 'bookstore/ADD-BOOK';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+
 const URL = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/HQ4dyPd09pUjSNKdipg5/books';
+const GET_BOOK = 'bookstore/books/GET_BOOK';
+const ADD_BOOK = 'bookstore/books/ADD_BOOK';
+const REMOVE_BOOK = 'bookstore/books/REMOVE_BOOK';
 
-export const getBook = (book) => ({
-  type: ADD_BOOK, book,
-});
-
-export const fetchBooks = () => (dispatch) => {
-  fetch(URL)
-    .then((response) => response.json())
-    .then((data) => dispatch(getBook(data)));
-};
-
-export const addBook = (book) => async (dispatch) => {
-  await fetch(URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-    body: JSON.stringify(book),
-  }).then(() => dispatch(fetchBooks()));
-};
-
-export const deleteBook = (itemId) => async (dispatch) => {
-  const REMOVE_URL = `${URL}/${itemId}`;
-
-  await fetch(REMOVE_URL, {
-    method: 'DELETE',
-    body: JSON.stringify({ itemId }),
-    headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-  }).then(() => dispatch(fetchBooks()));
-};
-
-const bookReducer = (state = {}, action = {}) => {
+export default function reducer(state = [], action) {
+  const list = [];
   switch (action.type) {
-    case ADD_BOOK:
-      return action.book;
+    case `${ADD_BOOK}/fulfilled`:
+      return [...state, action.payload];
+    case `${REMOVE_BOOK}/fulfilled`:
+      return state.filter((item) => item.item_id !== action.payload);
+    case `${GET_BOOK}/fulfilled`:
+      Object.keys(action.payload).forEach((element) => {
+        const book = action.payload[element][0];
+        book.item_id = element;
+        list.push(book);
+      });
+      return list;
     default:
       return state;
   }
-};
+}
 
-export default bookReducer;
+export const addBook = createAsyncThunk(ADD_BOOK, async (obj) => {
+  await fetch(URL,
+    {
+      method: 'POST',
+      body: JSON.stringify(obj),
+      headers: {
+        'content-Type': 'application/json; charset=UTF-8',
+      },
+    });
+  return obj;
+});
+
+export const removeBook = createAsyncThunk(REMOVE_BOOK, async (id) => {
+  await fetch(`${URL}/${id}`,
+    {
+      method: 'DELETE',
+      body: JSON.stringify({ item_id: id }),
+      headers: {
+        'content-Type': 'application/json; charset=UTF-8',
+      },
+    });
+  return id;
+});
+
+export const getBook = createAsyncThunk(GET_BOOK, async () => {
+  const response = await fetch(URL,
+    {
+      method: 'GET',
+      headers: {
+        'content-Type': 'application/json; charset=UTF-8',
+      },
+    });
+  const result = await response.json();
+  return result;
+});
