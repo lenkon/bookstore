@@ -11,13 +11,13 @@ class BookList extends React.Component {
   render() {
     const { books } = this.props;
     return (
-      books.map((book) => <Book key={book.id} book={book} />)
+      Object.keys(books).map((itemId) => <Book key={itemId} book={books[itemId]} itemId={itemId} />)
     );
   }
 }
 
 BookList.propTypes = {
-  books: PropTypes.instanceOf(Array).isRequired,
+  books: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default BookList;

@@ -125,3 +125,12 @@ form input[type=text] {
 .interactions li:last-child button {
   padding: 0 1em;
 }
+
+.btn-check-status {
+  cursor: pointer;
+  border: none;
+  color: white;
+  background-color: rgb(70, 67, 67);
+  margin: 1em;
+  padding: 1em;
+}

@@ -13,14 +13,10 @@ const Form = () => {
 
     if (title !== '' && author !== '') {
       dispatch(addBook({
-        itemId: uuidv4(),
-        cat: 'Miscellaneous',
+        item_id: uuidv4(),
+        category: 'Miscellaneous',
         title,
         author,
-        chapters: 18,
-        presentChapter: {},
-        progress: 0,
-        comments: [],
       }));
     }
     setAuthor('');

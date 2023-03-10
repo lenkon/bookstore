@@ -1,53 +1,38 @@
 const ADD_BOOK = 'bookstore/ADD-BOOK';
-const REMOVE_BOOK = 'bookstore/REMOVE-BOOK';
+const URL = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/HQ4dyPd09pUjSNKdipg5/books';
 
-const books = [
-  {
-    itemId: 'item1',
-    comments: [],
-    completed: 64,
-    category: 'Fiction',
-    title: 'The Great Gatsby',
-    author: 'John Smith',
-    chapters: 28,
-    presentChapter: { chapter: 17, chapterTitle: '' },
-  },
-  {
-    itemId: 'item2',
-    comments: [],
-    completed: 8,
-    category: 'Fiction',
-    title: 'Anna Karenina',
-    author: 'Leo Tolstoy',
-    chapters: 50,
-    presentChapter: { chapter: 3, chapterTitle: '' },
-  },
-  {
-    itemId: 'item3',
-    comments: [],
-    completed: 0,
-    category: 'Nonfiction',
-    title: 'The Selfish Gene',
-    author: 'Richard Dawkins',
-    chapters: 15,
-    presentChapter: { chapter: 1, chapterTitle: '' },
-  },
-];
-
-export const addBook = (book) => ({
+export const getBook = (book) => ({
   type: ADD_BOOK, book,
 });
 
-export const removeBook = (itemId) => ({
-  type: REMOVE_BOOK, itemId,
-});
+export const fetchBooks = () => (dispatch) => {
+  fetch(URL)
+    .then((response) => response.json())
+    .then((data) => dispatch(getBook(data)));
+};
 
-const bookReducer = (state = books, action = {}) => {
+export const addBook = (book) => async (dispatch) => {
+  await fetch(URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+    body: JSON.stringify(book),
+  }).then(() => dispatch(fetchBooks()));
+};
+
+export const deleteBook = (itemId) => async (dispatch) => {
+  const REMOVE_URL = `${URL}/${itemId}`;
+
+  await fetch(REMOVE_URL, {
+    method: 'DELETE',
+    body: JSON.stringify({ itemId }),
+    headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+  }).then(() => dispatch(fetchBooks()));
+};
+
+const bookReducer = (state = {}, action = {}) => {
   switch (action.type) {
     case ADD_BOOK:
-      return [...state, action.book];
-    case REMOVE_BOOK:
-      return state.filter((book) => book.itemId !== action.itemId);
+      return action.book;
     default:
       return state;
   }
