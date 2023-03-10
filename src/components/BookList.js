@@ -1,23 +1,28 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getBook } from '../redux/books/booksSlice';
+import Form from './Form';
 import Book from './Book';
 
-class BookList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+function BookList() {
+  const dispatch = useDispatch();
 
-  render() {
-    const { books } = this.props;
-    return (
-      books.map((book) => <Book key={book.id} book={book} />)
-    );
-  }
+  useEffect(() => {
+    dispatch(getBook());
+  }, [dispatch]);
+
+  const books = useSelector((state) => state.books);
+  return (
+    <div>
+      {}
+      {
+        books.map((item) => (
+          <Book key={item.item_id} title={item.title} author={item.author} id={item.item_id} />
+        ))
+      }
+      <Form />
+    </div>
+  );
 }
-
-BookList.propTypes = {
-  books: PropTypes.instanceOf(Array).isRequired,
-};
 
 export default BookList;

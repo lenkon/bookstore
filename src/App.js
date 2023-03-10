@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import NavBar from './components/Navbar';
-import BooksDetails from './components/BooksDetails';
+import BookList from './components/BookList';
 import Categories from './components/Categories';
 
 function App() {
@@ -12,8 +12,8 @@ function App() {
       <Provider store={store}>
         <NavBar />
         <Routes>
-          <Route exact path="/" element={<BooksDetails />} />
-          <Route path="/books" element={<BooksDetails />} />
+          <Route exact path="/" element={<BookList />} />
+          <Route path="/books" element={<BookList />} />
           <Route path="/categories" element={<Categories />} />
         </Routes>
       </Provider>
