@@ -13,13 +13,21 @@ function BookList() {
 
   const books = useSelector((state) => state.books);
   return (
-    <div>
-      {}
-      {
-        books.map((item) => (
-          <Book key={item.item_id} title={item.title} author={item.author} id={item.item_id} />
-        ))
-      }
+    <div className="homeContainer">
+      <div className="homeBook">
+        {
+          books.map((item) => (
+            <Book
+              key={item.item_id}
+              title={item.title}
+              author={item.author}
+              id={item.item_id}
+              category={item.category}
+            />
+          ))
+        }
+      </div>
+      <div className="horizontal-divider" />
       <Form />
     </div>
   );
