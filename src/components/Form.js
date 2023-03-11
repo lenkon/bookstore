@@ -30,15 +30,14 @@ function Form() {
   };
 
   return (
-    <form onSubmit={submitHandler}>
-      <label htmlFor="title">
-        <input name="title" placeholder="Book title" onChange={inputHandler} value={newBook.title} required />
-      </label>
-      <label htmlFor="author">
-        <input name="author" placeholder="Book author" onChange={inputHandler} value={newBook.author} required />
-      </label>
-      <button type="submit">ADD BOOK</button>
-    </form>
+    <div className="m-3">
+      <h2 className="form-title">ADD NEW BOOK</h2>
+      <form className="book-card display-flex form-container" onSubmit={submitHandler}>
+        <input className="p-1" type="text" name="title" placeholder="Book title" onChange={inputHandler} value={newBook.title} required />
+        <input className="p-1" type="text" name="author" placeholder="Book author" onChange={inputHandler} value={newBook.author} required />
+        <button className="p-1 form-button button" type="submit">ADD BOOK</button>
+      </form>
+    </div>
   );
 }
 

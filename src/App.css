@@ -1,3 +1,148 @@
-.App {
-  text-align: center;
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  --blue: rgb(37, 143, 248);
+  --white: #fff;
+  --gray: rgb(205, 205, 205);
+}
+
+ul,
+li {
+  list-style-type: none;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+nav ul li {
+  text-transform: uppercase;
+  padding-left: 2em;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: var(--gray);
+}
+
+h1 {
+  color: #2b7ec6;
+}
+
+.user-icon {
+  width: 50px;
+  height: 50px;
+  text-align: end;
+  justify-content: center;
+  border: 1px solid var(--gray);
+  border-radius: 50%;
+  font-size: 35px;
+  color: #2b7ec6;
+}
+
+form input[type=text] {
+  width: 35%;
+  margin: auto;
+}
+
+.form-button {
+  margin: 1em;
+}
+
+.form-container {
+  width: 100%;
+}
+
+.display-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.m-3 {
+  margin: 3em;
+}
+
+.mt-1 {
+  margin-top: 1em;
+}
+
+.p-1 {
+  padding: 1em;
+}
+
+.form-title {
+  padding: 1em 0;
+  color: var(--gray);
+  border-top: 2px solid var(--gray);
+}
+
+.button,
+.btn-check-status {
+  color: var(--white);
+  background-color: var(--blue);
+  border: 1px solid var(--blue);
+}
+
+.completed {
+  border-radius: 50%;
+  width: 4.2rem;
+  height: 4.2rem;
+  border: 5px solid #2b7ec6;
+  border-left-color: #e8e8e8;
+  border-bottom-color: #e8e8e8;
+  -webkit-transform: rotate(55deg);
+  transform: rotate(45deg);
+  margin-right: 20px;
+}
+
+.book-card {
+  padding: 2em;
+  border: 1px solid var(--gray);
+}
+
+.book-card-details {
+  width: 50%;
+}
+
+.interactions li button {
+  cursor: pointer;
+  border: none;
+  color: var(--blue);
+  background-color: #fff;
+  margin-top: 1em;
+  padding-right: 1em;
+}
+
+.interactions li:nth-of-type(2n) button {
+  border-left: 1px solid var(--gray);
+  border-right: 1px solid var(--gray);
+}
+
+.interactions li:nth-of-type(2n) button,
+.interactions li:last-child button {
+  padding: 0 1em;
+}
+
+.btn-check-status {
+  cursor: pointer;
+  border: none;
+  margin: 1em 48px;
+  padding: 1em;
+}
+
+.categories-default-text {
+  margin-left: 48px;
+  margin-top: 16px;
 }

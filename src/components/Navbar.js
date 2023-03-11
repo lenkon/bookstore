@@ -1,12 +1,30 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import 'font-awesome/css/font-awesome.min.css';
 
 function Navbar() {
+  const links = [
+    { id: 1, text: 'Books', path: '/books' },
+    { id: 2, text: 'Categories', path: '/categories' },
+  ];
   return (
-    <div>
-      <NavLink to="/">BOOKS</NavLink>
-      <NavLink to="/categories">CATEGORIES</NavLink>
-    </div>
+    <nav className="display-flex space-between m-3 align-center">
+      <div className="display-flex">
+        <h1>Bookstore CMS</h1>
+        <ul className="display-flex align-center">
+          {
+            links.map((link) => (
+              <li key={link.id}>
+                <NavLink to={link.path}>{link.text}</NavLink>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div className="display-flex align-center user-icon">
+        <i className="fa fa-user" />
+      </div>
+    </nav>
   );
 }
 

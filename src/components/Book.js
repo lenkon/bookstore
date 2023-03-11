@@ -9,12 +9,60 @@ function Book({ title, author, id }) {
   const removeHandler = (id) => {
     dispatch(removeBook(id));
   };
+
+  const category = 'Miscellaneous';
+
   return (
-    <div>
-      <h2>{title}</h2>
-      <h3>{author}</h3>
-      <button type="button" onClick={() => removeHandler(id)}>Remove</button>
-    </div>
+    <li className="display-flex m-3 space-between book-card">
+      <div>
+        <ul>
+          <li>{category}</li>
+          <li><h2>{title}</h2></li>
+          <li>{author}</li>
+        </ul>
+        <ul className="interactions display-flex">
+          <li>
+            <button type="button">
+              Comments
+            </button>
+          </li>
+          <li>
+            <button type="button" onClick={() => { removeHandler(id); }}>
+              Remove
+            </button>
+          </li>
+          <li>
+            <button type="button">
+              Edit
+            </button>
+          </li>
+        </ul>
+
+      </div>
+      <div className="display-flex space-between book-card-details">
+        <div className="display-flex">
+          <span className="completed" />
+          {48}
+          %
+          {' '}
+          <br />
+          {' '}
+          Completed
+        </div>
+        <div>
+          <h4>CURRENT CHAPTER</h4>
+          <div>
+            Chapter
+            {}
+            :
+            {}
+          </div>
+          <div>
+            <button className="mt-1" type="button">Update Progress</button>
+          </div>
+        </div>
+      </div>
+    </li>
   );
 }
 

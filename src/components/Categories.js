@@ -12,9 +12,9 @@ function Categories() {
   const categories = useSelector((state) => state.categories);
 
   return (
-    <div>
-      <button type="button" onClick={checkStatusHandler}>Check status</button>
-      <h2>{categories}</h2>
+    <div className="book-card m-3 display-flex">
+      <button className="btn-check-status" type="button" onClick={checkStatusHandler}>Check status</button>
+      <h2 className="categories-default-text">{categories}</h2>
     </div>
   );
 }
