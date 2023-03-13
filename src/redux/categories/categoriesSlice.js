@@ -8,6 +8,6 @@ export default function reducer(state = [], action) {
   }
 }
 
-export function checkingStatus() {
+export function checkCategoryStatus() {
   return { type: CATEGORY_CHECK_STATUS };
 }

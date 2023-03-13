@@ -13,8 +13,8 @@ function BookList() {
 
   const books = useSelector((state) => state.books);
   return (
-    <div className="homeContainer">
-      <div className="homeBook">
+    <div>
+      <div>
         {
           books.map((item) => (
             <Book
@@ -27,7 +27,6 @@ function BookList() {
           ))
         }
       </div>
-      <div className="horizontal-divider" />
       <Form />
     </div>
   );
