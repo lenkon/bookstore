@@ -62,7 +62,7 @@
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-- [Live Demo Link](Coming soon..)
+- [Live Demo Link](https://bookstore-cms-djr0.onrender.com/)
 - [Source Link](https://github.com/lenkon/bookstore)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
